@@ -4,7 +4,7 @@
 
 _start:
 
-	MOV R1, #11          @ r1 ? 1
+	MOV R1, #111          @ r1 ? 1
 	MOV R2, #5            @ r2 ? 5
 	MOV R3, #0            @ Counter
 	MOV R4, #0            @ Swap flag 
@@ -13,14 +13,15 @@ _start:
 	BLT _Swapcheck
 
 _Subtract:
-	SUB R1, R1, R2        @r0 -=r1
+	SUB R1, R1, R2       @r0 -=r1
+	MOV R0, R1
 	ADD R3, R3, #1        @counter++
 	CMP R1, R2            @check a>b again
 	BGE _Subtract         @Go through this loop again
 	BLT _Swapcheck        @If the check does not pass do this 
 
 _Swapcheck:
-	CMP R4, #1
+	CMP R4, #0
 	BEQ end
 	BNE _Swap 	          
 
