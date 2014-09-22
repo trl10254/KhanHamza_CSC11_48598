@@ -4,7 +4,7 @@
 
 _start:
 
-	MOV R1, #111          @ r1 ? 1
+	MOV R1, #11          @ r1 ? 1
 	MOV R2, #5            @ r2 ? 5
 	MOV R3, #0            @ Counter
 	MOV R4, #0            @ Swap flag 
