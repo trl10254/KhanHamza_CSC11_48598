@@ -1,4 +1,5 @@
 /* Khan, Hamza - Assignment 2 - 48598 */
+/* Finds a/b and a%b */
 
 	.global _start
 
@@ -26,7 +27,7 @@ _Swapcheck:
 
 _Swap:
 	MOV R5, R0            @Swaps the function in r0 with r5
-	MOV R0, R3            @Swaps the funcion in r3 with r0
+	MOV R0, R3            @Swaps the function in r3 with r0
 	MOV R3, R5            @Swaps the function in r5 with r3
 	b end
 

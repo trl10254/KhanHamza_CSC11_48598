@@ -1,4 +1,5 @@
 /* Khan, Hamza - Assignment 2 - 48598 */
+/* Finds a/b and a%b */
 
 .global _start
 
