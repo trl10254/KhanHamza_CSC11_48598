@@ -3,33 +3,32 @@
 	.global _start
 
 _start:
+	MOV R1, #13
+	MOV R2, #6
+	MOV R3, #0  @holds counter(s)
+	MOV R4, #1  @for swap
+	CMP R1, R2
+	BGE Sub
+	BLT check
 
-	MOV R1, #111          @ r1 ? 1
-	MOV R2, #5            @ r2 ? 5
-	MOV R3, #0            @ Counter
-	MOV R4, #1            @ Swap flag 
-	CMP R1, R2		      @ update the CPSR
-	BGE _Subtract
-	BLT _Swapcheck
+Sub:
+	SUB R1, R1, R2 @R1-=R2
+	MOV R0, R1
+	CMP R1, R2
+	BGE Sub
+	BLT check
 
-_Subrtract:
-	SUB R1, R1, R2        @r0 -=r1
-	MOV R0, R1,         
-	CMP R1, R2            @check a>b again
-	BGE _Subtract         @Go through this loop again
-	BLT _Swapcheck        @If the check does not pass do this 
-
-_Swapcheck:
+check:
 	CMP R4, #0
+	BEQ swap
 	BNE end
-	BEQ _Swap 	          
 
-_Swap:
-	MOV R5, R0            @Swaps the function in r0 with r5
-	MOV R0, R3            @Swaps the funcion in r3 with r0
-	MOV R3, R5            @Swaps the function in r5 with r3
+swap:
+ 	MOV R5, R0
+	MOV R0, R3
+	MOV R3, R5
 	b end
-
+	
 end:
 	MOV R7, #1
-	SWI 0 
+	SWI 0
