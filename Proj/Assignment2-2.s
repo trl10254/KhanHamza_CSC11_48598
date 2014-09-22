@@ -12,7 +12,7 @@ _start:
 	BGE _Subtract
 	BLT _Swapcheck
 
-_Subrtact:
+_Subrtract:
 	SUB R1, R1, R2        @r0 -=r1
 	ADD R3, R3, #1        @counter++
 	CMP R1, R2            @check a>b again
