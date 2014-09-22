@@ -13,15 +13,14 @@ _start:
 	BLT _Swapcheck
 
 _Subtract:
-	SUB R1, R1, R2       @r0 -=r1
-	MOV R0, R1
+	SUB R1, R1, R2       @R1-=R2
 	ADD R3, R3, #1        @counter++
 	CMP R1, R2            @check a>b again
 	BGE _Subtract         @Go through this loop again
 	BLT _Swapcheck        @If the check does not pass do this 
 
 _Swapcheck:
-	CMP R4, #0
+	CMP R4, #1
 	BEQ end
 	BNE _Swap 	          
 
