@@ -4,7 +4,7 @@
 	.global _start
 
 _start:
-	MOV R2, #56ce
+	MOV R2, #111
 	MOV R3, #5
 	MOV R4, #0
 	MOV R5, #0
