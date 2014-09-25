@@ -4,7 +4,7 @@
 	.global _start
 
 _start:
-	MOV R2, #22222
+	MOV R2, #56ce
 	MOV R3, #5
 	MOV R4, #0
 	MOV R5, #0
@@ -22,7 +22,7 @@ _Scale:
 	MUL R7, R3, R6
 	MUL R9, R7, R8
 	CMP R1, R9
-	MUL R6, R6, R8
+	MUL R6, R8, R8
 	MUL R7, R3, R6
 	MUL R9, R7, R8
 	
