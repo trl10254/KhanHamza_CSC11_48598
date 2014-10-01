@@ -1,10 +1,9 @@
 @Hamza Khan
 @Purpose of the program is to calculate a/b and a%b in an efficient manner
 
-	.global main
-_Start:
+	.global _Start
 	
-main:
+_Start:
 	MOV R2, #222      @a=222
 	MOV R3, #5        @b=5
 	MOV R4, #0        @swap flag
@@ -15,46 +14,46 @@ main:
 	MOV R9, #0        @shift test
 	MOV R0, #0        @
 	MOV R1, R2
-	b divmod1
+	b _divmod1
 	
-divmod1:
+_divmod1:
 	CMP R1, R3
-	BGE scale
-	BLT swapchk
+	BGE _scale
+	BLT _swapchk
 	
-scale:
+_scale:
 	MOV R6, #1
 	MUL R7, R3, R6
 	MUL R9, R7, R8
 	CMP R1, R9
-	BGT shift
-	BLE divmod2
+	BGT _shift
+	BLE _divmod2
 	
-shift:
+_shift:
 	MUL R5, R6, R8
 	MOV R6, R5
 	MUL R7, R3, R6
 	MUL R9, R7, R8
-	b divmod2
+	b _divmod2
 	
-divmod2:
+_divmod2:
 	ADD R0, R0, R6
 	SUB R1, R1, R7
 	CMP R1, R7
-	BGE divmod2
-	BLT divmodchk
+	BGE _divmod2
+	BLT _divmodchk
 	
-divmodchk:
+_divmodchk:
 	CMP R6, #1
-	BGT scale
-	BLT swapchk
+	BGT _scale
+	BLT _swapchk
 	
-swapchk:
+_swapchk:
 	CMP R4, #0
-	BEQ swap
+	BEQ _swap
 	BNE end
 	
-swap:
+_swap:
 	MOV R5, R0
 	MOV R0, R1
 	MOV R1, R5
