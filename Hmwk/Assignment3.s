@@ -1,54 +1,65 @@
 @Hamza Khan
 @Purpose of the program is to calculate a/b and a%b in an efficient manner
 
-	.global _start
-
-_start:
-	MOV R2, #111
-	MOV R3, #5
-	MOV R4, #0
-	MOV R5, #0
-	MOV R6, #0
-	MOV R7, #0
-	MOV R8, #10
-	MOV R9, #0
-	MOV R0, #0
+	.global main
+	
+main:
+	MOV R2, #222      @a=222
+	MOV R3, #5        @b=5
+	MOV R4, #0        @swap flag
+	MOV R5, #0        @temp
+	MOV R6, #0        @present scale
+	MOV R7, #0        @scale factor
+	MOV R8, #10       @shift factor
+	MOV R9, #0        @shift test
+	MOV R0, #0        @
 	MOV R1, R2
+	b divmod1
+	
+divmod1:
 	CMP R1, R3
-	BLT _Swap
+	BGE scale
+	BLT swapchk
 	
-_Scale:
-	CMP R6, #1		@scale R6
-	MUL R7, R3, R6		@Subtraction factor
-	MUL R9, R7, R8		@Next subtracion factor
-	b _Second
-
-_Second:
-	MUL R6, R6, R8		@Scale factor
-	MUL R7, R3, R6		@Subtraction factor
-	MUL R9, R7, R8		@Next subtracion factor
+scale:
+	MOV R6, #1
+	MUL R7, R3, R6
+	MUL R9, R7, R8
 	CMP R1, R9
-	BGE _Second
+	BGT shift
+	BLE divmod2
 	
-_Third:
-	ADD R0, R0, R6		@Increase by scale
-	SUB R1, R1, R7		@Subtract by b*scale
+shift:
+	MUL R5, R6, R8
+	MOV R6, R5
+	MUL R7, R3, R6
+	MUL R9, R7, R8
+	b divmod2
+	
+divmod2:
+	ADD R0, R0, R6
+	SUB R1, R1, R7
 	CMP R1, R7
-	BGE _Third
+	BGE divmod2
+	BLT divmodchk
 	
-_Fourth:
+divmodchk:
 	CMP R6, #1
-	BGE _Scale
+	BGT scale
+	BLT swapchk
 	
-_Swap:
-	MOV R4, #0		@Check if R4 is set
-	BEQ _end;		@End program is R4 is 0
-	MOV R5, R0		@If R4 is set start swapping
+swapchk:
+	CMP R4, #0
+	BEQ swap
+	BNE end
+	
+swap:
+	MOV R5, R0
 	MOV R0, R1
 	MOV R1, R5
+	b end
 	
-_end:
-	MOV R7, #1
-	SWI 0
+end:
+	bx lr
 	
 	
