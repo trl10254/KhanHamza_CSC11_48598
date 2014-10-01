@@ -18,29 +18,37 @@ _start:
 	BLT _Swap
 	
 _Scale:
-	MOV R6, #1
-	MUL R7, R3, R6
-	MUL R9, R7, R8
+	CMP R6, #1		@scale R6
+	MUL R7, R3, R6		@Subtraction factor
+	MUL R9, R7, R8		@Next subtracion factor
+	b _Second
+
+_Second:
+	MUL R6, R6, R8		@Scale factor
+	MUL R7, R3, R6		@Subtraction factor
+	MUL R9, R7, R8		@Next subtracion factor
 	CMP R1, R9
-	MUL R6, R8, R8
-	MUL R7, R3, R6
-	MUL R9, R7, R8
+	BGE _Second
 	
-_Subtract:
-	BEQ _Scale
-	ADD R0, R0, R6
-	SUB R1, R1, R7
+_Third:
+	ADD R0, R0, R6		@Increase by scale
+	SUB R1, R1, R7		@Subtract by b*scale
 	CMP R1, R7
-	BGE _Subtract
+	BGE _Third
+	
+_Fourth:
 	CMP R6, #1
+	BGE _Scale
+	
 _Swap:
-	MOV R4, #0
-	BEQ end;
-	MOV R5, R0
+	MOV R4, #0		@Check if R4 is set
+	BEQ _end;		@End program is R4 is 0
+	MOV R5, R0		@If R4 is set start swapping
 	MOV R0, R1
 	MOV R1, R5
 	
-end:
-	bx lr
+_end:
+	MOV R7, #1
+	SWI 0
 	
 	
