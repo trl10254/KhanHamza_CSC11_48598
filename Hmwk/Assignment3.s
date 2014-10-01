@@ -2,6 +2,7 @@
 @Purpose of the program is to calculate a/b and a%b in an efficient manner
 
 	.global main
+_Start:
 	
 main:
 	MOV R2, #222      @a=222
