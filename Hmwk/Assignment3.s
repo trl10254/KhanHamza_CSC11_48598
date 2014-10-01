@@ -60,6 +60,6 @@ _swap:
 	b end
 	
 end:
-	bx lr
+	SWI 0
 	
 	
