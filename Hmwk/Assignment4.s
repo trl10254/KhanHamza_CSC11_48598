@@ -14,7 +14,7 @@ message2: .asciz "%d / %d is %d\n"
 
 @Third Message
 .balign 4
-message 3: .asciz "Raminder is %d\n"
+message3: .asciz "Reminder is %d\n"
 
 @Format pattern for scanf
 .balign 4
@@ -29,7 +29,7 @@ number_read: .word 0
 number_read2: .word 0
 
 .balign 4
-return: .word0
+return: .word 0
 
 	.text
 	.global main
@@ -89,7 +89,7 @@ output:
 	BL printf
 
 	MOV R1, R4
-	LDR R0, address of message3
+	LDR R0, address_of_message3
 	BL printf
 
 end:
