@@ -24,7 +24,7 @@ scan_pattern: .asciz "%d %d"
 .balign 4
 number_read: .word 0
 
-@Where scanf wills tore the denominator
+@Where scanf wills store the denominator
 .balign 4
 number_read2: .word 0
 
@@ -67,7 +67,7 @@ scale_left:
 
 addSub:
 	ADD R0, R0, R4
-	SUB	R1, R1, R5
+	SUB R1, R1, R5
 	b scale_right
 
 scale_right: 
@@ -108,4 +108,3 @@ address_of_return : .word return
 @External 
 .global printf
 .global scanf
-
