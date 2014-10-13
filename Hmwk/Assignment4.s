@@ -6,7 +6,7 @@
 
 @First Message
 .balign 4
-messgae1: .asciz "Enter a numerator and denominator: "
+messgae1: .asciz "Enter a numerator and denominator:"
 
 @Second Message
 .balign 4
