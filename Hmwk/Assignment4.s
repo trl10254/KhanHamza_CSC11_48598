@@ -49,10 +49,10 @@ main:
 	LDR R2, [R2]
 	LDR R3, address_of_number_read2
 	LDR R3, [R3]                      
-	MOV R4, #1     @scale factor*/
-	MOV R5, R3     @subtraction factor*/
-	MOV R0, #0     @counter*/
-	MOV R1, R2     @remainder*/
+	MOV R4, #1     @scale factor
+	MOV R5, R3     @subtraction factor
+	MOV R0, #0     @counter
+	MOV R1, R2     @remainder
 
 	CMP R2, R3
 	BLT output
