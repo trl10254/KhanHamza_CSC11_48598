@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @Pupose: Efficient technique for calculating a/b and a%b
 @Created by Hamza Khan
 
