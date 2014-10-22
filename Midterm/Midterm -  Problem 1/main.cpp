@@ -10,51 +10,75 @@
 using namespace std;
 
 //Declare function prototypes
-void normalpay(int&, int&, int&);
-void overtimepay(int& , int& , int&, int&);
-void doubleovertimepay(int& , int& ,int& ,int& );
+void normalpay(int&, int&, int&, int&);
+void overtimepay(int&, int&, int&, int&, int&);
+void doubleovertimepay(int&, int&, int&, int&, int&);
 
 int main(int argc, char** argv) 
 {
     //Declare local variables
-    int R2 = 20;
-    int R3 = 40;
-    int R4 = 60;
-    int R5 = 0;
-    int R6 = R5;
-    int R7 = 2;
-    int R8 = 3;
-    int R1 = 0;
+    int R0;
+    int R1;
+    int R2;
+    int R3;
+    int R4;
     
     cout << "How many hours did the person work: ";
-    cin >> R5;
+    cin >> R1;
     
     cout << "What is the normal rate of pay: ";
-    cin >> R6;
+    cin >> R2;
     
-    cout << "For the 20 hours you worked you earned: ";
-    normalpay(R2, R5, R6);
+    normalpay(R0, R1, R2, R3);
     
-    cout << "If you worked between 20 to 40 hours you earned: ";
-    overtimepay(R3, R5, R6, R7); 
+    overtimepay(R0, R1, R2, R3, R4); 
     
-    cout << "If you worked for more then 40 hours you earned: ";
-    doubleovertimepay(R4, R5, R6, R8);
+    doubleovertimepay(R0, R1, R2, R3, R4);
+    
+    cout << "Pay: " << R0 << " " <<  endl;
 
     return 0;
 }
 
-void overtimepay(int &R3, int &R5, int &R6, int &R7)
+void normalpay(int &R0, int &R1, int &R2, int &R3)
 {
+    if(R1 >= 20)
+    {
+        R3 = R1 * R2;
+    }
+    
+    R0 = R0 + R3;
     
 }
 
-void doubleovertimepay(int &R4, int &R5, int &R6, int &R8)
+void overtimepay(int &R0, int &R1, int &R2, int &R3, int &R4)
 {
+   if (R1 > 20 || R1 <= 40)
+    {
+       R4 = R1 - 40;
+       R3 = R2 * 2;
+       R3 = R3 * R4;
+       R2 = R2 - R4;
+    } 
+   
+   R0 = R0 + R3;
+   
+
+}
+
+void doubleovertimepay(int &R0, int &R1, int &R2, int &R3, int &R4)
+{
+    if (R1 > 40 || R1 <= 60)
+    {
+        
+        R4 = R1 - 40;
+        R3 = R2 * 3;
+        R3 = R3 * R4;
+        R1 = R1 - R4;
+    }
+    
+    R0 = R0 + R3;
     
 }
 
-void normalpay(int &R2, int &R5, int &R6)
-{
-    
-}
+
