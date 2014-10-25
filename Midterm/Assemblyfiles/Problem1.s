@@ -48,7 +48,7 @@ main:
     bl scanf
 
 gethours:
-    LDR R0, addr_p1hours
+    LDR R0, addr_hours
     bl printf
     LDR R0, addr_format
     LDR R1, addr_hours_value
@@ -64,7 +64,7 @@ gethours:
     BAL valid
     
 invalid:
-    LDR r0, addr_p1error
+    LDR r0, addr_error
     bl printf
     BAL gethours
 
@@ -91,7 +91,7 @@ doubleOT:
 
 outputPay:
     MUL R1, R2, R1
-    LDR R0, addr_p1pay
+    LDR R0, addr_pay
     BL printf
     
 end:

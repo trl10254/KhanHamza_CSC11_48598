@@ -13,7 +13,7 @@ list_top:
 	.asciz "\n\n+--------------------------+\n| Midterm                  |"
 
 list_choices: 
-	.asciz "\n| [1] Paycheck Creator  |\n| [2] ISP Bill Creator  |\n| [3] Fibonacci Calculator |"
+	.asciz "\n| 1. Paycheck Creator     |\n| 2. Bill Creator     |\n| 3. Fibonacci Calculator |"
 
 getchoice: 
 	.asciz "\nEnter choice:  "
