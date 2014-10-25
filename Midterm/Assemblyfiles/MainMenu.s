@@ -1,5 +1,5 @@
-Midterm Menu
-By: Hamza Khan
+@Midterm Menu
+@By: Hamza Khan
 @***********************************************************************
 	.data
 
@@ -20,9 +20,9 @@ getchoice:
 @***********************************************************************
 	.text
 @***********************************************************************
-	.global menu
+	.global main
 
-menu:
+main:
     push {lr}
     
     LDR R0, addr_list_top
@@ -55,3 +55,5 @@ addr_list_top: .word list_top
 addr_list_format: .word list_format
 addr_list_choices: .word list_choices
 addr_getchoice: .word getchoice
+.global printf
+.global scanf

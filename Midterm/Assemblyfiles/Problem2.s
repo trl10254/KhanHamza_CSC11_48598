@@ -1,5 +1,5 @@
-Midterm Problem 2
-By: Hamza Khan
+@Midterm Problem 2
+@By: Hamza Khan
 
 @**********************************************************************
 	.data
@@ -42,9 +42,9 @@ hours_value:
 @**********************************************************************
 	.text
 @**********************************************************************
-	.global Bill
+	.global main
 
-Bill:
+main:
     push {lr}
     push {r0}
     
@@ -194,3 +194,5 @@ addr_p2test: .word test
 addr_list_top: .word list_top
 addr_list_format: .word list_format
 addr_list_choices: .word list_choices
+.global printf
+.global scanf

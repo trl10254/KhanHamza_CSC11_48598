@@ -1,5 +1,5 @@
-Midterm Problem 3
-By: Hamza Khan
+@Midterm Problem 3
+@By: Hamza Khan
 @***********************************************************************
 	.data
 
@@ -93,3 +93,5 @@ addr_p3term: .word term
 addr_p3error: .word error
 addr_p3result: .word result
 addr_p3term_value: .word term_value
+.global printf
+.global scanf

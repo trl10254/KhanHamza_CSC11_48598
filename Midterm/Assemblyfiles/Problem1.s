@@ -1,5 +1,5 @@
-Midterm Problem 1
-By: Hamza Khan
+@Midterm Problem 1
+@By: Hamza Khan
 @*********************************************************************
     .data
 
@@ -108,3 +108,5 @@ addr_format: .word format
 addr_p1test: .word test
 addr_p1payrate_value: .word payrate_value
 addr_p1hours_value: .word hours_value
+.global printf
+.global scanf
