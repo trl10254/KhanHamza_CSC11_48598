@@ -183,14 +183,14 @@ end:
     bx lr
 @**********************************************************************
 addr_format: .word format
-addr_p2intro: .word intro
-addr_p2package: .word package
-addr_p2hours: .word hours
-addr_p2error: .word error
-addr_p2bill: .word bill
-addr_p2package_value: .word package_value
-addr_p2hours_value: .word hours_value
-addr_p2test: .word test
+addr_intro: .word intro
+addr_package: .word package
+addr_hours: .word hours
+addr_error: .word error
+addr_bill: .word bill
+addr_package_value: .word package_value
+addr_hours_value: .word hours_value
+addr_test: .word test
 addr_list_top: .word list_top
 addr_list_format: .word list_format
 addr_list_choices: .word list_choices

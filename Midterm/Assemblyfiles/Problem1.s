@@ -99,14 +99,14 @@ end:
     pop {pc}
     bx lr
 @**********************************************************************
-addr_p1intro: .word intro
-addr_p1payrate: .word payrate
-addr_p1hours: .word hours
-addr_p1error: .word error
-addr_p1pay: .word p1pay
+addr_intro: .word intro
+addr_payrate: .word payrate
+addr_hours: .word hours
+addr_error: .word error
+addr_pay: .word p1pay
 addr_format: .word format
-addr_p1test: .word test
-addr_p1payrate_value: .word payrate_value
-addr_p1hours_value: .word hours_value
+addr_test: .word test
+addr_payrate_value: .word payrate_value
+addr_hours_value: .word hours_value
 .global printf
 .global scanf
