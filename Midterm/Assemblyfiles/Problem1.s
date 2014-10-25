@@ -103,7 +103,7 @@ addr_intro: .word intro
 addr_payrate: .word payrate
 addr_hours: .word hours
 addr_error: .word error
-addr_pay: .word p1pay
+addr_pay: .word pay
 addr_format: .word format
 addr_test: .word test
 addr_payrate_value: .word payrate_value
