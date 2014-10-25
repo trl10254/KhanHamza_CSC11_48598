@@ -17,7 +17,7 @@ list_choices:
 	.asciz "\n| [1] Package A  |\n| [2] Package B  |\n| [3] Package C  |"
 
 intro: 
-	.asciz "\nISP Bill Calculator"
+	.asciz "\nBill Creator"
 
 package: 
 	.asciz "\nPackage:  "
