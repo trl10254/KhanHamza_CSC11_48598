@@ -236,7 +236,7 @@ getpackage2:
 
 gethours2:
     LDR R0, addr_hours2
-    bl printf2
+    bl printf
     LDR R0, addr_format2
     LDR R1, addr_hours_value2
     bl scanf
@@ -317,7 +317,7 @@ packageC2:
     CMP R2, #33
     BGT pC_gt_332
     MOV R2, #0
-    BAL pC_end
+    BAL pC_end2
 
 pC_gt_662:
     SUB R3, R2, #66
