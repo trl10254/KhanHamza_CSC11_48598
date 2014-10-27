@@ -137,9 +137,9 @@ main:
     bx lr
 @**********************************************************************
 @Problem 1
-    .global main1
+    .global main
 
-main1:
+main:
     push {lr}
     push {r0}
     
@@ -205,9 +205,9 @@ end1:
     bx lr
 @**********************************************************************
 @Problem 2
-    .global main2
+    .global main
 
-main2:
+main:
     push {lr}
     push {r0}
     
@@ -346,9 +346,9 @@ end2:
     bx lr
 @**********************************************************************
 @Problem 3
-    .global main3
+    .global main
 
-main3:
+main:
     push {lr}
     push {R0}
     
