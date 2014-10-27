@@ -50,22 +50,15 @@ loop:
 	CMP R0, #1
 	BEQ Problem1
 	BEQ loop
-	BEQ Problem1
-	BEQ loop
 	
 	CMP R0, #2
-	BEQ Problem2
-	BEQ loop
 	BEQ Problem2
 	BEQ loop
 	
 	CMP R0, #3
 	BEQ Problem3
 	BEQ loop
-	BEQ Problem3
-	BEQ loop
 
-    
     ADD sp, sp, #+4
     pop {lr} 
     bx lr
