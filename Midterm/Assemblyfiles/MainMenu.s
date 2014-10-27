@@ -23,7 +23,8 @@ getchoice:
 	.global main
 
 main:
-    push {lr}
+    push {lr} 
+	loop:
     
     LDR R0, addr_list_top
     bl printf
@@ -44,7 +45,19 @@ main:
     LDR R0, addr_format
     MOV R1, SP
     bl scanf
-    ldr R0, [sp]
+    LDR R0, [sp]
+	
+	CMP R0, #1
+	BEQ main1
+	BEQ loop
+	
+	CMP R0, #2
+	BEQ main2
+	BEQ loop
+	
+	CMP R0, #3
+	BEQ main3
+	BEQ loop
     
     ADD sp, sp, #+4
     pop {lr} 
