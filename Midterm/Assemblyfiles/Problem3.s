@@ -3,95 +3,95 @@
 @***********************************************************************
 	.data
 
-format: 
+format3: 
 	.asciz "%d"
 
-intro: 
+intro3: 
 	.asciz "\nFibonacci Calculator"
 
-term: 
+term3: 
 	.asciz "\nEnter term:  "
 
-error: 
+error3: 
 	.asciz "\nERROR: Invalid term: %d\n"
 
-result: 
+result3: 
 	.asciz "Result:  %d"
 
-term_value: 
+term_value3: 
 	.asciz "%d"
 @***********************************************************************
 	.text
 @***********************************************************************
-	.global main
+	.global main3
 
-main:
+main3:
     push {lr}
     push {R0}
     
-    LDR R0, addr_intro
+    LDR R0, addr_intro3
     bl printf
     
-getterm:
-    LDR R0, addr_term
+getterm3:
+    LDR R0, addr_term3
     bl printf
-    LDR R0, addr_format
-    LDR R1, addr_term_value
+    LDR R0, addr_format3
+    LDR R1, addr_term_value3
     bl scanf
     
-    LDR R1, addr_term_value
+    LDR R1, addr_term_value3
     LDR R1, [R1]
     CMP R1, #0
-    BLE invalid    
+    BLE invalid3  
     
-valid:
+valid3:
     cmp r1, #1
-    beq term1
+    beq term13
     cmp r1, #2
-    beq term2
+    beq term23
     
     MOV R0, #0
     MOV R2, #0
     MOV R3, #1
     SUB R1, R1, #1
     
-calculate:
+calculate3:
     ADD R0, R2, R3
     MOV R2, R3
     MOV R3, R0
     SUB R1, R1, #1
     CMP R1, #1
-    BGT calculate
-    BAL print_value
+    BGT calculate3
+    BAL print_value3
     
-term1:
+term13:
     MOV r3, #0
-    BAL print_value
+    BAL print_value3
     
-term2:
+term23:
     MOV R3, #1
-    BAL print_value
+    BAL print_value3
     
-invalid:
-    LDR R0, addr_error
+invalid3:
+    LDR R0, addr_error3
     bl printf
-    BAL getterm
+    BAL getterm3
     
-print_value:
+print_value3:
     MOV R1, r3
-    LDR R0, addr_result
+    LDR R0, addr_result3
     bl printf
     
-end:
+end3:
     pop {r0}
     pop {pc}
     bx lr
 @***********************************************************************
-addr_format: .word format
-addr_intro: .word intro
-addr_term: .word term
-addr_error: .word error
-addr_result: .word result
-addr_term_value: .word term_value
+addr_format3: .word format3
+addr_intro3: .word intro3
+addr_term3: .word term3
+addr_error3: .word error3
+addr_result3: .word result3
+addr_term_value3: .word term_value3
 .global printf
 .global scanf

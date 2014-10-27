@@ -4,195 +4,195 @@
 @**********************************************************************
 	.data
 
-format: 
+forma2t: 
 	.asciz "%d"
 
-list_format: 
+list_format2: 
 	.asciz "\n+----------------+"
 
-list_top: 
+list_top2: 
 	.asciz "\n\n+----------------+\n| Packages       |"
 
-list_choices: 
+list_choices2: 
 	.asciz "\n| [1] Package A  |\n| [2] Package B  |\n| [3] Package C  |"
 
-intro: 
+intro2: 
 	.asciz "\nBill Creator"
 
-package: 
+package2: 
 	.asciz "\nPackage:  "
 
-hours: 
+hours2: 
 	.asciz "Hours Used:  "
 
-error: 
+error2: 
 	.asciz "\nERROR: Package %d not recognized\n"
 
-bill: 
+bill2: 
 	.asciz "Amount Due:  $%d"
 
-test: 
+test2: 
 	.asciz "R1 = %d R2 = %d"
 
-package_value: 
+package_value2: 
 	.word 0
 
-hours_value: 
+hours_value2: 
 	.word 0
 @**********************************************************************
 	.text
 @**********************************************************************
-	.global main
+	.global main2
 
-main:
+main2:
     push {lr}
     push {r0}
     
-    LDR R0, addr_intro
+    LDR R0, addr_intro2
     bl printf
 
-    LDR R0, addr_list_top
+    LDR R0, addr_list_top2
     bl printf
 
-    LDR R0, addr_list_format
+    LDR R0, addr_list_format2
     bl printf
 
-    LDR R0, addr_list_choices
+    LDR R0, addr_list_choices2
     bl printf
 
-    LDR R0, addr_list_format
+    LDR R0, addr_list_format2
     bl printf
   
-getpackage:
-    LDR R0, addr_package
+getpackage2:
+    LDR R0, addr_package2
     bl printf
 
-    LDR R0, addr_format
-    LDR R1, addr_package_value
+    LDR R0, addr_format2
+    LDR R1, addr_package_value2
     bl scanf
 
-gethours:
-    LDR R0, addr_hours
-    bl printf
-    LDR R0, addr_format
-    LDR R1, addr_hours_value
+gethours2:
+    LDR R0, addr_hours2
+    bl printf2
+    LDR R0, addr_format2
+    LDR R1, addr_hours_value2
     bl scanf
 
-    LDR R1, addr_package_value
+    LDR R1, addr_package_value2
     LDR R1, [R1]
-    LDR R2, addr_hours_value
+    LDR R2, addr_hours_value2
     LDR R2, [R2]
     
     CMP r1, #1
-    BEQ packageA
+    BEQ packageA2
     CMP r1, #2
-    BEQ packageB
+    BEQ packageB2
     CMP r1, #3
-    BEQ packageC
-    BAL invalid
+    BEQ packageC2
+    BAL invalid2
   
-invalid:
-    LDR R0, addr_error
-    LDR R1, addr_package_value
+invalid2:
+    LDR R0, addr_error2
+    LDR R1, addr_package_value2
     bl printf
-    BAL getpackage
+    BAL getpackage2
   
-packageA:
+packageA2:
     MOV R0, #30
     CMP R2, #22
-    BGT pA_gt_22
+    BGT pA_gt_222
     CMP R2, #11
-    BGT pA_gt_11
+    BGT pA_gt_112
     MOV R2, #0
-    BAL pA_end
+    BAL pA_end2
 
-pA_gt_22:
+pA_gt_222:
     SUB R3, R2, #22
     MOV R1, #2
     MUL R3, R1, R3
     ADD R2, R3, #11
-    BAL pA_end
+    BAL pA_end2
 
-pA_gt_11:
+pA_gt_112:
     SUB R2, R2, #11
-    bal pA_end
+    bal pA_end2
 
-pA_end:
+pA_end2:
     MOV R1, #3
     MUL R3, R2, R1
-    BAL output
+    BAL output2
     
-packageB:
+packageB2:
     MOV R0, #35
     CMP R2, #44
-    BGT pB_gt_44
+    BGT pB_gt_442
     CMP R2, #22
-    BGT pB_gt_22
+    BGT pB_gt_222
     MOV R2, #0
-    BAL pB_end
+    BAL pB_end2
 
-pB_gt_44:
+pB_gt_442:
     SUB R3, R2, #44
     MOV R1, #2
     MUL R3, R1, R3
     ADD R2, R3, #22
-    BAL pB_end
+    BAL pB_end2
 
-pB_gt_22:
+pB_gt_222:
     SUB R2, R2, #22
-    BAL pB_end
+    BAL pB_end2
 
-pB_end:
+pB_end2:
     MOV R1, #2
     MUL R3, R2, R1
-    BAL output
+    BAL output2
     
-packageC:
+packageC2:
     MOV R0, #40
     CMP R2, #66
-    BGT pC_gt_66
+    BGT pC_gt_662
     CMP R2, #33
-    BGT pC_gt_33
+    BGT pC_gt_332
     MOV R2, #0
     BAL pC_end
 
-pC_gt_66:
+pC_gt_662:
     SUB R3, R2, #66
     MOV R1, #2
     MUL R3, R1, r3
     ADD R2, R3, #33
-    BAL pC_end
+    BAL pC_end2
 
-pC_gt_33:
+pC_gt_332:
     SUB R2, R2, #11
-    BAL pC_end
+    BAL pC_end2
 
-pC_end:
+pC_end2:
     MOV R3, R2
-    BAL output
+    BAL output2
     
-output:
+output2:
     ADD R1, R0, R3
-    LDR R0, addr_bill
+    LDR R0, addr_bill2
     bl printf
-    BAL end
+    BAL end2
     
-end:
+end2:
     pop {r0}
     pop {lr}
     bx lr
 @**********************************************************************
-addr_format: .word format
-addr_intro: .word intro
-addr_package: .word package
-addr_hours: .word hours
-addr_error: .word error
-addr_bill: .word bill
-addr_package_value: .word package_value
-addr_hours_value: .word hours_value
-addr_test: .word test
-addr_list_top: .word list_top
-addr_list_format: .word list_format
-addr_list_choices: .word list_choices
+addr_format2: .word format2
+addr_intr2: .word intro2
+addr_package2: .word package2
+addr_hours2: .word hours2
+addr_error2: .word error2
+addr_bill2: .word bill2
+addr_package_value2: .word package_value2
+addr_hours_value2: .word hours_value2
+addr_test2: .word test2
+addr_list_top2: .word list_top2
+addr_list_format2: .word list_format2
+addr_list_choices2: .word list_choices2
 .global printf
 .global scanf

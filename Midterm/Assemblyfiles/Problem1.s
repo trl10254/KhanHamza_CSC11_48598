@@ -3,95 +3,95 @@
 @*********************************************************************
     .data
 
-format: 
+format1: 
     .asciz "%d"
 
-intro: 
+intro1: 
     .asciz "\nPaycheck Calculator"
 
-payrate: 
+payrate1: 
     .asciz "\nPayrate:  "
 
-hours: 
+hours1: 
     .asciz "Hours Worked:  "
 
-error: 
+error1: 
     .asciz "\nERROR: Hours cannot exceed 60 per week\n"
 
-pay: 
+pay1: 
     .asciz "Gross Pay:  $%d\n"
 
-payrate_value: 
+payrate_value1: 
     .word 0
 
-hours_value: 
+hours_value1: 
     .word 0
 
-test: 
+test1: 
     .asciz "R1 = %d R2 = %d R3 = %d R4 = %d"
 @**********************************************************************
     .text
 @**********************************************************************
-    .global main
+    .global main1
 
-main:
+main1:
     push {lr}
     push {r0}
     
-    LDR R0, addr_intro
+    LDR R0, addr_intro1
     bl printf
   
-    LDR R0, addr_payrate
+    LDR R0, addr_payrate1
     bl printf
-    LDR R0, addr_format
-    LDR R1, addr_payrate_value
+    LDR R0, addr_format1
+    LDR R1, addr_payrate_value1
     bl scanf
 
-gethours:
-    LDR R0, addr_hours
+gethours1:
+    LDR R0, addr_hours1
     bl printf
-    LDR R0, addr_format
-    LDR R1, addr_hours_value
+    LDR R0, addr_format1
+    LDR R1, addr_hours_value1
     bl scanf
     
-    LDR R1, addr_payrate_value
+    LDR R1, addr_payrate_value1
     LDR R1, [R1]
-    LDR R2, addr_hours_value
+    LDR R2, addr_hours_value1
     LDR R2, [R2]
     
     CMP R2, #60
-    BGT invalid
+    BGT invalid1
     BAL valid
     
-invalid:
-    LDR r0, addr_error
+invalid1:
+    LDR r0, addr_error1
     bl printf
-    BAL gethours
+    BAL gethours1
 
-valid:
+valid1:
     CMP R2, #40
-    BGE tripleOT
+    BGE tripleOT1
     CMP R2, #20
-    BGE doubleOT
-    BAL outputPay
+    BGE doubleOT1
+    BAL outputPay1
   
-tripleOT:
+tripleOT1:
     SUB R3, R2, #40
     MOV r0, #3
     MUL R3, R0, R3
     ADD R2, R3, #60
     BAL outputPay
 
-doubleOT:
+doubleOT1:
     SUB R3, R2, #20
     MOV R0, #2
     MUL R3, R0, R3
     ADD R2, R3, #20
-    BAL outputPay
+    BAL outputPay1
 
-outputPay:
+outputPay1:
     MUL R1, R2, R1
-    LDR R0, addr_pay
+    LDR R0, addr_pay1
     BL printf
     
 end:
@@ -99,14 +99,14 @@ end:
     pop {pc}
     bx lr
 @**********************************************************************
-addr_intro: .word intro
-addr_payrate: .word payrate
-addr_hours: .word hours
-addr_error: .word error
-addr_pay: .word pay
-addr_format: .word format
-addr_test: .word test
-addr_payrate_value: .word payrate_value
-addr_hours_value: .word hours_value
+addr_intro1: .word intro1
+addr_payrate1: .word payrate1
+addr_hours1: .word hours1
+addr_error1: .word error1
+addr_pay1: .word pay1
+addr_format1: .word format1
+addr_test1: .word test1
+addr_payrate_value1: .word payrate_value1
+addr_hours_value1: .word hours_value1
 .global printf
 .global scanf
