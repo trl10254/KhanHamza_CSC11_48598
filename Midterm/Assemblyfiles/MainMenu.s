@@ -24,8 +24,8 @@ getchoice:
 
 main:
     push {lr} 
-	loop:
-    
+
+loop:    
     LDR R0, addr_list_top
     bl printf
 
@@ -48,16 +48,23 @@ main:
     LDR R0, [sp]
 	
 	CMP R0, #1
-	BEQ main1
+	BEQ Problem1
+	BEQ loop
+	BEQ Problem1
 	BEQ loop
 	
 	CMP R0, #2
-	BEQ main2
+	BEQ Problem2
+	BEQ loop
+	BEQ Problem2
 	BEQ loop
 	
 	CMP R0, #3
-	BEQ main3
+	BEQ Problem3
 	BEQ loop
+	BEQ Problem3
+	BEQ loop
+
     
     ADD sp, sp, #+4
     pop {lr} 

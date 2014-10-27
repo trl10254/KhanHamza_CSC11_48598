@@ -32,9 +32,9 @@ test1:
 @**********************************************************************
     .text
 @**********************************************************************
-    .global main1
+    .global problem1
 
-main1:
+problem1:
     push {lr}
     push {r0}
     
@@ -61,7 +61,7 @@ gethours1:
     
     CMP R2, #60
     BGT invalid1
-    BAL valid
+    BAL valid1
     
 invalid1:
     LDR r0, addr_error1
@@ -80,7 +80,7 @@ tripleOT1:
     MOV r0, #3
     MUL R3, R0, R3
     ADD R2, R3, #60
-    BAL outputPay
+    BAL outputPay1
 
 doubleOT1:
     SUB R3, R2, #20
@@ -92,12 +92,12 @@ doubleOT1:
 outputPay1:
     MUL R1, R2, R1
     LDR R0, addr_pay1
-    BL printf
+    bl printf
     
-end:
+end1:
     pop {r0}
     pop {pc}
-    bx lr
+    mov pc, lr
 @**********************************************************************
 addr_intro1: .word intro1
 addr_payrate1: .word payrate1

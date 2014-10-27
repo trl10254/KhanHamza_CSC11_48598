@@ -74,18 +74,18 @@ term23:
     
 invalid3:
     LDR R0, addr_error3
-    bl printf
+    BL printf
     BAL getterm3
     
 print_value3:
-    MOV R1, r3
+    MOV R1, R3
     LDR R0, addr_result3
     bl printf
     
 end3:
     pop {r0}
     pop {pc}
-    bx lr
+    mov pc, lr
 @***********************************************************************
 addr_format3: .word format3
 addr_intro3: .word intro3

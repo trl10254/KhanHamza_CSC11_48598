@@ -4,7 +4,7 @@
 @**********************************************************************
 	.data
 
-forma2t: 
+format2: 
 	.asciz "%d"
 
 list_format2: 
@@ -42,9 +42,9 @@ hours_value2:
 @**********************************************************************
 	.text
 @**********************************************************************
-	.global main2
+	.global problem2
 
-main2:
+problem2:
     push {lr}
     push {r0}
     
@@ -73,10 +73,10 @@ getpackage2:
 
 gethours2:
     LDR R0, addr_hours2
-    bl printf2
+    BL printf
     LDR R0, addr_format2
     LDR R1, addr_hours_value2
-    bl scanf
+	BL scanf
 
     LDR R1, addr_package_value2
     LDR R1, [R1]
@@ -154,7 +154,7 @@ packageC2:
     CMP R2, #33
     BGT pC_gt_332
     MOV R2, #0
-    BAL pC_end
+    BAL pC_end2
 
 pC_gt_662:
     SUB R3, R2, #66
@@ -180,7 +180,7 @@ output2:
 end2:
     pop {r0}
     pop {lr}
-    bx lr
+    mov pc, lr
 @**********************************************************************
 addr_format2: .word format2
 addr_intr2: .word intro2

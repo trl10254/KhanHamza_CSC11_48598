@@ -137,7 +137,7 @@ main:
     bx lr
 @**********************************************************************
 @Problem 1
-    .global main
+    .global Problem
 
 main:
     push {lr}
