@@ -75,7 +75,8 @@ void problem2()
     cout << "Please chose one of these packages (a or 1, b or 2, and c or 3): ";
     cin >> R1;
     
-    cout << "You enter in " << R1;
+    cout << "Please enter in how many hours you used up";
+    cin >> R2;
     
     if (R1 == 1)
     {
@@ -93,6 +94,25 @@ void problem2()
     }
     
     cout << "The amount you owe for this month is " << R0 << endl;
+}
+
+void PackageA (int &R2, int &R0)
+{
+    //Declare local variables
+    int R3;
+    int R4;
+    
+    
+}
+
+void PackageB (int &R2, int &R0)
+{
+    //Declare local variables
+}
+
+void PackageC (int &R2, int &R0)
+{
+    //Declare local variables
 }
 
 
