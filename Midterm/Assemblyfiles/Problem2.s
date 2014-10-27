@@ -179,7 +179,7 @@ output2:
     
 end2:
     pop {r0}
-    pop {lr}
+    pop {pc}
     mov pc, lr
 @**********************************************************************
 addr_format2: .word format2
