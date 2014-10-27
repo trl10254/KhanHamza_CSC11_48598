@@ -425,7 +425,7 @@ addr_test1: .word test1
 addr_payrate_value1: .word payrate_value1
 addr_hours_value1: .word hours_value1
 addr_format2: .word format2
-addr_intr2: .word intro2
+addr_intro2: .word intro2
 addr_package2: .word package2
 addr_hours2: .word hours2
 addr_error2: .word error2
