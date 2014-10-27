@@ -49,15 +49,15 @@ loop:
 	
 	CMP R0, #1
 	BL Problem1
-	BEQ loop
+	BL loop
 	
 	CMP R0, #2
 	BL Problem2
-	BEQ loop
+	BL loop
 	
 	CMP R0, #3
 	BL Problem3
-	BEQ loop
+	BL loop
 
     ADD sp, sp, #+4
     pop {lr} 
