@@ -10,9 +10,7 @@
 
 using namespace std;
 
-/*
- * 
- */
+
 void problem1();
 void problem2();
 void problem3();
@@ -25,7 +23,8 @@ int main(int argc, char** argv)
     
     do{
         menu(r0);
-        switch(r0){
+        switch(r0)
+        {
             case 1:
                 problem1();
                 break;

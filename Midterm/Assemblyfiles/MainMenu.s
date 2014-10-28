@@ -48,16 +48,13 @@ loop:
     LDR R0, [sp]
 	
 	CMP R0, #1
-	BEQ Problem1
-	BEQ loop
+	BL problem1
 	
 	CMP R0, #2
-	BEQ Problem2
-	BEQ loop
+	BL problem2
 	
 	CMP R0, #3
-	BEQ Problem3
-	BEQ loop
+	BL problem3
 
     ADD sp, sp, #+4
     pop {lr} 
