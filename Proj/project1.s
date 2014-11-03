@@ -27,7 +27,7 @@ format:
 
 main: 
     STR lr, [sp,#-4]!            @ Push lr onto the top of the stack 
-    sub sp, sp, #4               @ Make room for one 4 byte integer in the stack 
+    SUB sp, sp, #4               @ Make room for one 4 byte integer in the stack 
 
     MOV R4, #95			             @Cover word with "_" ascii code = 95 
     MOV R5, #95
@@ -64,7 +64,7 @@ loop:                          @Print the word one character at a time (no array
   BL printf 
     
   LDR R0, address_of_message2
-  bl printf 
+  BL printf 
 
   LDR R0, address_of_format   @Set &format as the first parameter of scanf 
   MOV R1, sp                  @Set the top of the stack as the second parameter of scanf 
