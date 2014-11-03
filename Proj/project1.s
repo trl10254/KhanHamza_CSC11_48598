@@ -1,6 +1,6 @@
 @Project 1
 @By: Hamza Khan
-
+*******************************************************************************************
 	.data 
 
 message1: 
@@ -10,19 +10,19 @@ message2:
 	.asciz "\n\nPick a letter: "
 
 message3: 
-	.asciz "\nThat letter isn't in the word\n"
+	.asciz "\nThat letter isn't in the word. Try again\n"
 
 message4: 
 	.asciz "You have %d guesses left\n"
 
 message5: 
-	.asciz "\nYou already used that letter\n"
+	.asciz "\nYou already used that letter. Try again\n"
 
 format:   
 	.asciz " %c" 
-
+******************************************************************************************
 	.text 
-
+******************************************************************************************
 	.global main
 
 main: 
@@ -39,7 +39,7 @@ main:
     MOV R11, #6			 @Guesses left 
 
     loop:
-	   @Print the word one character at a time (no arrays yet) */
+	   @Print the word one character at a time (no arrays yet) 
        MOV R1, R4
        LDR R0, address_of_message1  @Set &message1 as the first parameter of printf 
        BL printf                    @Call printf 
@@ -57,6 +57,10 @@ main:
        BL printf 
 
        MOV R1, R8
+       LDR R0, address_of_message1
+       BL printf 
+
+       MOV R1, R9
        LDR R0, address_of_message1
        BL printf 
     
@@ -166,7 +170,7 @@ main:
      	ADD sp, sp, #4              @Discard the integer read by scanf     
      	LDR lr, [sp], #+4           @Pop the top of the stack and put it in lr 
      	bx lr                       @Leave main
-   
+****************************************************************************************   
 address_of_message1: .word message1
 address_of_message2: .word message2 
 address_of_message3: .word message3
