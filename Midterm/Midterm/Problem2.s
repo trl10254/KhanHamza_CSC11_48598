@@ -14,22 +14,22 @@ list_top2:
 	.asciz "\n\n+----------------+\n| Packages       |"
 
 list_choices2: 
-	.asciz "\n| [1] Package A  |\n| [2] Package B  |\n| [3] Package C  |"
+	.asciz "\n| 1. Package A  |\n| 2. Package B  |\n| 3. Package C  |"
 
 intro2: 
 	.asciz "\nBill Creator"
 
 package2: 
-	.asciz "\nPackage:  "
+	.asciz "\nEnter in what package you have:  "
 
 hours2: 
-	.asciz "Hours Used:  "
+	.asciz "How many hours were used:  "
 
 error2: 
 	.asciz "\nERROR: Package %d not recognized\n"
 
 bill2: 
-	.asciz "Amount Due:  $%d"
+	.asciz "The amount due is:  $%d"
 
 test2: 
 	.asciz "R1 = %d R2 = %d"

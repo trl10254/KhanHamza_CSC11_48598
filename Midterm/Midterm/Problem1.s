@@ -7,19 +7,19 @@ format1:
     .asciz "%d"
 
 intro1: 
-    .asciz "\nPaycheck Calculator"
+    .asciz "\nPaycheck Creator"
 
 payrate1: 
-    .asciz "\nPayrate:  "
+    .asciz "\nWhat is the pay rate:  "
 
 hours1: 
-    .asciz "Hours Worked:  "
+    .asciz "How many hours did they work:  "
 
 error1: 
     .asciz "\nERROR: Hours cannot exceed 60 per week\n"
 
 pay1: 
-    .asciz "Gross Pay:  $%d\n"
+    .asciz "The person's Gross Pay is:  $%d\n"
 
 payrate_value1: 
     .word 0

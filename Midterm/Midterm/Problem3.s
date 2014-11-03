@@ -10,13 +10,13 @@ intro3:
 	.asciz "\nFibonacci Calculator"
 
 term3: 
-	.asciz "\nEnter term:  "
+	.asciz "\nEnter termin a term:  "
 
 error3: 
 	.asciz "\nERROR: Invalid term: %d\n"
 
 result3: 
-	.asciz "Result:  %d"
+	.asciz "The result for that term is:  %d"
 
 term_value3: 
 	.asciz "%d"
