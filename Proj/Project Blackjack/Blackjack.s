@@ -48,7 +48,7 @@ betMsg:
 	.asciz "Blackbeard: Well How much loot are you willing to part with mate: "
 
 .balign 4
-prntBal: .asciz "Your balance is  $%f\n"
+prntBal: .asciz "The amount of loot you have is  $%f\n"
 
 .balign 4
 playMsg: 
@@ -84,7 +84,7 @@ playAns:
 
 .balign 4
 balance: 
-	.float 10.00
+	.float 100.00
 
 .balign 4
 betAmnt: 
@@ -262,7 +262,7 @@ plyrCont:
 
      CMP R1, #'h' 
      BEQ choiceH 
-     b choiceS                     @anything other than 'h' is stand 
+     b choiceS                     @anything other than 'h' is stay 
         
 choiceH:                          @player choose to get another card 
      LDR R0, adr_newLine            @new line 
@@ -436,7 +436,7 @@ bjWin:
      LDR R0, adr_bjPay
      VLDR s12, [R0]
      
-     VMUL.f32 s11, s12, s11        @increase original bet amount to 3:2 
+     VMUL.f32 s11, s12, s11       
 
      VADD.f32 s10, s10, s11
 
@@ -474,7 +474,7 @@ playAgain:
      CMP R0, #'y'
      BEQ play        
 
-broke:                                        @player has no money remainind
+broke:                                        @player has no money remaining
      LDR R0, adr_brkMsg
      BL printf
         
