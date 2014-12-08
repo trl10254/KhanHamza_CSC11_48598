@@ -148,327 +148,340 @@ main:
     SUB sp,sp, #4
 
     @seed random number generator 
-    MOV R0, #0
-    BL time
-    BL srand
+     MOV R0, #0
+     BL time
+     BL srand
 
-    LDR R0, adr_nCard       @initialize index with 0-51 
-    LDR R0, [r0]
-    LDR R1, adr_shflIndx
-    BL fillArray
-	LDR R0, adr_nCard       @Shuffle the index
-	LDR R0, [r0]
+     LDR R0, adr_nCard       @initialize index with 0-51 
+     LDR R0, [R0]
+     LDR R1, adr_shflIndx
+     BL fillArray
 
-    LDR R1, adr_shflIndx
-    BL shuffle
-	
-	MOV R5, #0				@r5 holds number of cards that are dealt
+     LDR R0, adr_nCard        @shuffle the index 
+     LDR R0, [R0]
+     LDR R1, adr_shflIndx
+     BL shuffle
 
-@Start the game here	
+     LDR R0, =wlcm
+     BL printf
+
+
+     MOV R5, #0                    @r5 holds number of cards that have been dealt                   
+
+    @Start the game here */
 play:
-    LDR R0, adr_newLine
-    BL printf
 
-    LDR R0, adr_balance
-    VLDR s10, [r0]
-    VCVT.f64.f32 d0, s10
-    VMOV R2, R3, d0
-    LDR R0, adr_prntBal
-    BL printf
+     LDR R0, adr_newLine
+     BL printf
 
-    LDR R0, adr_betMsg
-    BL printf
+     LDR R0, adr_balance
+     VLDR s10, [R0]
+     VCVT.f64.f32 d0, s10
+     VMOV R2, R3, d0
+     LDR R0, adr_prntBal
+     BL printf
 
-    LDR R0, adr_betForm
-    LDR R1, adr_betAmnt
-    BL scanf
+     LDR R0, adr_betMsg
+     BL printf
 
-    LDR R0, adr_newLine
-    BL printf
- 
-	@MOV R5, #0					  @R5 holds number of cards that have been dealth
-    MOV R6, #0                    @R6 holds number of cards player has been dealt 
-    MOV R7, #0                    @R7 holds number of cards dealer has been dealt 
-	
+     LDR R0, adr_betForm
+     LDR R1, adr_betAmnt
+     BL scanf
+
+     LDR R0, adr_balance
+     VLDR s10, [R0]
+     LDR R0, adr_betAmnt
+     VLDR s11, [R0]
+
+   
+     VCMP.f32 s10, s11
+     VMRS apsr_nzcv, fpscr     @move fpscr into aspr 
+     BLT play 
+
+     LDR R0, adr_newLine
+     BL printf
+
+     MOV R6, #0                    @r6 holds number of cards player has been dealt 
+     MOV R7, #0                    @r7 holds number of cards dealer has been dealt 
+
 dealPlyr:
-    MOV R0, R5
-    LDR R1, adr_shflIndx
-    LDR R2, adr_plyrHnd
-    MOV R3, R6
-    BL deal
-    ADD R5, R5, #1    
-    ADD R6, R6, #1                @increment num  cards dealt to player 
-    CMP R6, #2
-    BNE	dealPlyr
+     MOV R0, R5
+     LDR R1, adr_shflIndx
+     LDR R2, adr_plyrHnd
+     MOV R3, R6
+     BL deal
+     ADD R5, R5, #1    
+     ADD R6, R6, #1              @increment num  cards dealt to player 
+     CMP R6, #2
+     BNE dealPlyr
 
 dealDlr:
-    LDR R1, adr_shflIndx
-    LDR R2, adr_dlrHnd
-    MOV R3, R7
-    BL deal
-    ADD R5, R5, #1    
-    ADD R7, R7, #1                @increment num cards dealt to dealer 
-    CMP	R7, #2
-    BNE	dealDlr
+     LDR R1, adr_shflIndx
+     LDR R2, adr_dlrHnd
+     MOV R3, R7
+     BL deal
+     ADD R5, R5, #1    
+     ADD R7, R7, #1              @increment num cards dealt to dealer 
+     CMP R7, #2
+     BNE dealDlr
 
-    LDR R0, adr_shwDlr
-    BL printf
+     LDR R0, adr_shwDlr
+     BL printf
 
-    MOV R0, #1                    @don't show dealer hole card 
-    LDR R1, adr_dlrHnd
-    BL printArray
+     MOV R0, #1                     @don't show dealer hole card 
+     LDR R1, adr_dlrHnd
+     BL printArray
 
-    LDR R0, adr_shwPlyr          @show player what they've got
-    BL printf
-	
-    MOV R0, R6
-    LDR R1, adr_plyrHnd
-    BL printArray
+     LDR R0, adr_shwPlyr            @show player what they've got 
+     BL printf
+     MOV R0, R6
+     LDR R1, adr_plyrHnd
+     BL printArray
 
+     @Check if player has blackjack  only after intial cards are dealt 
+     MOV R0, R6                @sum the total
+     LDR R1, adr_plyrHnd
+     MOV R2, #21
+     BL sumArray               @returns sum in r0 
 
-    @Check if player has blackjack  only after initial cards are dealt 
-    MOV R0, R6                @sum the total 
-    LDR R1, adr_plyrHnd
-    BL sumArray               @returns sum in r0
-
-    CMP R0, #21 
-    BEQ bjWin
+     CMP R0, #21 
+     BEQ bjWin
 
 plyrCont:
-    LDR R0, adr_newLine
-    BL printf
+     LDR R0, adr_newLine
+     BL printf
 
-    LDR R0, adr_hitStand
-    BL printf
-	
-    LDR R0, adr_hsFormat
-    LDR R1, adr_hsChoice
-    BL scanf
+     LDR R0, adr_hitStand
+     BL printf
+     LDR R0, adr_hsFormat
+     LDR R1, adr_hsChoice
+     BL scanf
 
-    LDR R1, adr_hsChoice              @get user choice read by scanf
-    LDR R1, [r1]
+     LDR R1, adr_hsChoice           @get user choice read by scanf 
+     LDR R1, [R1]
 
-    CMP	R1, #'h' 
-    BEQ choiceH 
-    b choiceS                         @anything other than 'h' is stay   
+     CMP R1, #'h' 
+     BEQ choiceH 
+     b choiceS                     @anything other than 'h' is stand 
+        
+choiceH:                          @player choose to get another card 
+     LDR R0, adr_newLine            @new line 
+     BL printf
+     MOV R0, R5
+     LDR R1, adr_shflIndx
+     LDR R2, adr_plyrHnd
+     MOV R3, r6
+     BL deal
+     ADD R5, R5, #1
+     ADD R6, R6, #1
 
-choiceH:                          @player choose to get another card
-	LDR R0, adr_newLine
-	BL printf
-	
-    MOV R0, R5
-    LDR R1, adr_shflIndx
-    LDR R2, adr_plyrHnd
-    MOV R3, R6
-    BL deal
-    ADD R5, R5, #1
-    ADD R6, R6, #1
+     LDR R0, adr_shwPlyr            @show player what they've got 
+     BL printf
+     MOV R0, R6
+     LDR R1, adr_plyrHnd
+     BL printArray
 
-    LDR r0, adr_shwPlyr            @show player what they've got 
-    BL printf
-	
-    MOV r0, r6
-    LDR r1, adr_plyrHnd
-    BL printArray
+     @after card has been dealt check if player has busted 
+     MOV R0, R6                @sum the total 
+     LDR R1, adr_plyrHnd
+     MOV R2, #21
+     BL sumArray               @returns sum in r0 
 
-    @after card has been dealt check if player has busted 
-    MOV R0, R6                @sum the total
-    LDR R1, adr_plyrHnd
-    MOV R2, #21
-    BL sumArray               @returns sum in r0 
+     CMP R0, #21 
+     BGT plyrBstd
 
-    CMP	R0, #21 
-    BGT plyrBstd
+     LDR R1, adr_plyrScr      @if player has not busted save the score 
+     STR r0, [r1]  
 
-    LDR R1, adr_plyrScr      @if player has not busted save the score 
-    STR	R0, [r1]  
+     BEQ choiceS              @don't allow hit when player has 21 
 
-    b plyrCont
+     b plyrCont
 
-choiceS:                        @player stays. 
+choiceS:                        @player stands. Dealer turn 
+     LDR r0, adr_newLine
+     BL printf
+     dealNext:
+     MOV R0, R5
+     LDR R1, adr_shflIndx
+     LDR R2, adr_dlrHnd
+     MOV R3, R7
+     BL deal
+     ADD R5, R5, #1
+     ADD R7, R7, #1
 
-    LDR R0, adr_newLine
-    BL printf
+     LDR R0, adr_shwDlr            @show player what dealer has 
+     BL printf
+     MOV R0, R7
+     LDR R1, adr_dlrHnd
+     BL printArray
 
-dealNext:
-    MOV R0, R5
-    LDR R1, adr_shflIndx
-    LDR R2, adr_dlrHnd
-    MOV R3, R7
-    BL deal
-    ADD R5, R5, #1
-    ADD R7, R7, #1
+     @after card has been dealt check if dealer has busted 
+     MOV R0, R7                @sum the total 
+     LDR r1, adr_dlrHnd
+     MOV R2, #17               @dealer hits on soft 17 
+     BL sumArray               @returns sum in r0 
 
-    LDR R0, adr_shwDlr            @show player what dealer has 
-    BL printf
-    MOV R0, R7
-    LDR R1, adr_dlrHnd
-    BL printArray
+     CMP R0, #21               @dealer has busted  
+     BGT dlrBstd
 
-    @after card has been dealt check if dealer has 
-    MOV R0, R7                @sum the total
-    LDR R1, adr_dlrHnd
-    MOV R2, #17               @dealer hits on soft 17 
-    BL sumArray               @returns sum in r0 
+     CMP R0, #17              @dealer no longer hits 
+     BGE checkWinner 
+     b dealNext
 
-    CMP R0, #21              @dealer has busted 
-    BGT dlrBstd
-	
-    CMP R0, #17              @dealer no longer hits
-    BGE checkWinner 
-    b dealNext
- 
 checkWinner:
-    LDR R1, adr_plyrScr
-    LDR R1, [R1]
-    CMP R1, R0                   @dealer hand in r0, player hand in r1
-    BEQ pushWon
-    BGT plyrWon
-    BLT dlrWon
+     LDR R1, adr_plyrScr
+     LDR R1, [R1]
+     CMP R1, R0                   @dealer hand in r0, player hand in r1 
+     BEQ pushWon
+     BGT plyrWon
+     BLT dlrWon
 
 pushWon:
-    LDR R0, =push
-    BL printf
-    b playAgain
-	
+     LDR R0, adr_newLine
+     BL printf
+     LDR R0, =push
+     BL printf
+     b playAgain
+      
 plyrWon:
-	LDR R0, adr_newLine
-	BL printf
-    LDR R0, =plyrWins
-    BL printf
+     LDR R0, adr_newLine
+     BL printf
+     LDR R0, =plyrWins
+     BL printf
 
-    @add bet to player balance 
-    LDR R0, adr_balance
-    VLDR s10, [R0]
-    LDR R1, adr_betAmnt
-    VLDR s11, [R1]
-    VADD.f32 s10, s10, s11
-    VSTR s10, [R0]                   @save the new balance 
-    VCVT.f64.f32 d0, s10             @print the  new balance 
-    VMOV R2, R3, d0
-    LDR R0, adr_prntBal 
-    BL printf
+     @add bet to player balance 
+     LDR R0, adr_balance
+     VLDR s10, [R0]
+     LDR r1, adr_betAmnt
+     VLDR s11, [R1]
+     VADD.f32 s10, s10, s11
+     VSTR s10, [R0]                   @save the new balance 
+     VCVT.f64.f32 d0, s10             @print the  new balance 
+     VMOV R2, R3, d0
+     LDR R0, adr_prntBal 
+     BL printf
 
-    b playAgain
+     b playAgain
 
 dlrWon:
-	LDR R0, adr_newLine
-	BL printf
-    LDR R0, =dlrWins
-    BL printf
+     LDR R0, adr_newLine
+     BL printf
+     LDR R0, =dlrWins
+     BL printf
 
-    @subtract bet amount from player
-    LDR R0, adr_balance
-    VLDR s10, [R0]
-    LDR R1, adr_betAmnt
-    VLDR s11, [R1]
-    VSUB.f32 s10, s10, s11
-    VSTR s10, [R0]                   @save the new balance 
-    VCVT.f64.f32 d0, s10
-    VMOV R2, R3, d0
-    LDR R0, adr_prntBal 
-    BL printf
+     @subtract bet amount from player 
+     LDR R0, adr_balance
+     VLDR s10, [R0]
+     LDR R1, adr_betAmnt
+     VLDR s11, [R1]
+     VSUB.f32 s10, s10, s11
+     VSTR s10, [R0]                   @save the new balance 
+     VCVT.f64.f32 d0, s10
+     VMOV R2, R3, d0
+     LDR R0, adr_prntBal 
+     BL printf
 
-    b playAgain
+     b playAgain
 
 plyrBstd:
-    LDR R0, adr_plyrBst
-    BL printf
+     LDR R0, adr_newLine
+     BL printf
+     LDR R0, adr_plyrBst
+     BL printf
 
-    @subtract bet amount from player 
-    LDR R0, adr_balance
-    VLDR s10, [R0]
-    LDR R1, adr_betAmnt
-    VLDR s11, [R1]
-    VSUB.f32 s10, s10, s11
-    VSTR s10, [R0]                   @save the new balance 
-    VCVT.f64.f32 d0, s10
-    VMOV R2, R3, d0
-    LDR R0, adr_prntBal 
-    BL printf
+     @subtract bet amount from player 
+     LDR R0, adr_balance
+     VLDR s10, [R0]
+     LDR R1, adr_betAmnt
+     VLDR s11, [R1]
+     VSUB.f32 s10, s10, s11
+     VSTR s10, [R0]                   @save the new balance 
+     VCVT.f64.f32 d0, s10
+     VMOV R2, R3, d0
+     LDR r0, adr_prntBal 
+     BL printf
 
-    b playAgain
+     b playAgain
 
 dlrBstd:
-    @add bet amount from player
-	LDR R0, adr_newLine
-	BL printf
-	
-    LDR R0, adr_dlrBst
-    BL printf
+     @add bet amount from player 
+     LDR R0, adr_dlrBst
+     bl printf
 
-    @add bet to player balance 
-    LDR R0, adr_balance
-    VLDR s10, [R0]
-    LDR R1, adr_betAmnt
-    VLDR s11, [R1]
-    VADD.f32 s10, s10, s11
-    VSTR s10, [R0]                   @save the new balance 
+     @add bet to player balance 
+     LDR R0, adr_balance
+     VLDR s10, [R0]
+     LDR R1, adr_betAmnt
+     VLDR s11, [R1]
+     VADD.f32 s10, s10, s11
+     VSTR s10, [R0]                   @save the new balance 
 
-    VCVT.f64.f32 d0, s10
-    VMOV R2, R3, d0
-    LDR R0, adr_prntBal 
-    BL printf
+     VCVT.f64.f32 d0, s10
+     VMOV R2, R3, d0
+     LDR R0, adr_prntBal 
+     BL printf
 
-    b playAgain
+     b playAgain
 
 bjWin:
-    LDR R0, adr_bjMess
-    BL printf
+     LDR R0, adr_bjMess
+     VL printf
 
-    @add bet to player balance 
-    LDR R0, adr_balance
-    VLDR s10, [R0]
-    LDR R1, adr_betAmnt
-    VLDR s11, [R1]
+     @add bet to player balance 
+     LDR R0, adr_balance
+     VLDR s10, [R0]
+     LDR R1, adr_betAmnt
+     VLDR s11, [R1]
 
-    LDR R0, adr_bjPay
-    VLDR s12, [R0]
-    
-    VMUL.f32 s11, s12, s11        @increase original bet amount to 3:2 
+     LDR R0, adr_bjPay
+     VLDR s12, [R0]
+     
+     VMUL.f32 s11, s12, s11        @increase original bet amount to 3:2 
 
-    VADD.f32 s10, s10, s11
-    VSTR s10, [R0]
-    VCVT.f64.f32 d0, s10
-    VMOV R2, R3, d0
-    LDR R0, adr_prntBal 
-    BL printf
-    
-    b playAgain
+     VADD.f32 s10, s10, s11
+
+     LDR R0, adr_balance
+     VSTR s10, [R0]
+     VCVT.f64.f32 d0, s10
+     VMOV R2, R3, d0
+     LDR R0, adr_prntBal 
+     BL printf
+        
+     b playAgain
 
 playAgain:
-    @check if player is broke
-    LDR R0, adr_balance
-    VLDR s10, [R0]
-    VCVT.s32.f32 s10, s10
-    VMOV R2, s10
-	MOV R1, #0
-	CMP R2, R1
-	BLE broke
+     @check if player is broke
+     LDR R0, adr_balance
+     VLDR s10, [r0]
+     VCVT.s32.f32 s10, s10
+     VMOV r2, s10
+     MOV R1, #0
+     CMP R2, R1
+     BLE broke
 
-    LDR R0, adr_newLine
-    BL printf
+     LDR R0, adr_newLine
+     BL printf
 
-    LDR R0, adr_playMsg
-    BL printf
+     LDR R0, adr_playMsg
+     BL printf
 
-    LDR R0, adr_hsFormat                     @re-use hsFormat to read in char
-    LDR R1, adr_playAns 
-    BL scanf
-   
-    LDR R0, adr_playAns
-    LDR R0, [r0]
-    CMP R0, #'y'
-    BEQ play        
+     LDR R0, adr_hsFormat                     @re-use hsFormat to read in char 
+     LDR R1, adr_playAns 
+     BL scanf
+        
+     LDR R0, adr_playAns
+     LDR R0, [r0]
+     CMP R0, #'y'
+     BEQ play        
 
-broke:                                        @player has no money remaining
-    LDR R0, adr_brkMsg
-    BL printf
-    
+broke:                                        @player has no money remainind
+     LDR R0, adr_brkMsg
+     BL printf
+        
 exit:
-    ADD sp, sp, #4
-    pop {lr}
-    bx lr
+     ADD sp, sp, #4
+     pop {lr}
+     bx lr
 @*********************************************************************************************************************
 adr_cardVal: .word cardVal
 adr_shflIndx: .word shflIndx
