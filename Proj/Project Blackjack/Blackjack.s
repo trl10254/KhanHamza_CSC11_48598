@@ -48,7 +48,7 @@ betMsg:
 	.asciz "Blackbeard: Well How much loot are you willing to part with mate: "
 
 .balign 4
-prntBal: .asciz "Your balance is  $%f\n"
+prntBal: .asciz "The amount of loot you have is  $%f\n"
 
 .balign 4
 playMsg: 
@@ -77,7 +77,7 @@ playAns:
 	.word 0
 .balign 4
 balance: 
-	.float 10.00
+	.float 100.00
 .balign 4
 betAmnt: 
 	.float 0
