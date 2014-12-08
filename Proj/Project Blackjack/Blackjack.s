@@ -104,7 +104,7 @@ cardVal:
     .word 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11
     .word 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11
     .word 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11
-    .word 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11
+    
 @This array will hold the index of which card to draw next
 shflIndx: 
 	.skip 56
