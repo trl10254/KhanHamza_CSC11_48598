@@ -48,7 +48,7 @@ betMsg:
 	.asciz "Blackbeard: Well How much loot are you willing to part with mate: "
 
 .balign 4
-prntBal: .asciz "Your balance is  $%f\n"
+prntBal: .asciz "The amount of loot you have is  $%f\n"
 
 .balign 4
 playMsg: 
@@ -57,59 +57,46 @@ playMsg:
 .balign 4
 brkMsg: 
 	.asciz "You: NOOOOOOOOOO! I can't be broke!\n"
-
 @Format of the game
 hsFormat: 
 	.asciz " %c"
-
 betForm: 
 	.asciz "%f"
-
 @Data
 .balign 4
 plyrScr: 
 	.word 0
-
 .balign 4
 dlrScr: 
 	.word 0
-
 .balign 4
 hsChoice: 
 	.word 0
-
 .balign 4
 playAns: 
 	.word 0
-
 .balign 4
 balance: 
-	.float 10.00
-
+	.float 100.00
 .balign 4
 betAmnt: 
 	.float 0
-
 @blackjack win payout 3:2 
 .balign 4
 bjPay: 
 	.float 1.5
-
 @arrays holding the hand of the player and dealer 
 @array padded with room for three more cards
  
  .balign 4
 dlrHnd: 
 	.skip 56
-
 .balign 4
 plyrHnd: 	
 	.skip 56
-
 .balign 4
 spltHnd: 
 	.skip 56
-
 @this array holds the value of the 52 cards in the deck 
 @card =  2, 3, 4, 5, 6, 7, 8, 9, 10, J,  Q,  K,  A
 .balign 4
@@ -118,24 +105,20 @@ cardVal:
     .word 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11
     .word 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11
     .word 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10, 11
-
+    
 @This array will hold the index of which card to draw next
 shflIndx: 
 	.skip 56
-
 @this array holds the index of the next card to be dealt 
 .balign 4
 shuflIndx: 
 	.skip 220
-
 @the index of the next card to be dealt 
 .balign 4
 cIndx: .word 0
-
 @Total number of cards in the deck. 
 nCard: 
 	.word 52
-
 .balign 4
 newLine: 
 	.asciz "\n" 
@@ -146,47 +129,38 @@ newLine:
 main:
     push {lr}
     SUB sp,sp, #4
-
     @seed random number generator 
     MOV R0, #0
     BL time
     BL srand
-
     LDR R0, adr_nCard       @initialize index with 0-51 
     LDR R0, [r0]
     LDR R1, adr_shflIndx
     BL fillArray
 	LDR R0, adr_nCard       @Shuffle the index
 	LDR R0, [r0]
-
     LDR R1, adr_shflIndx
     BL shuffle
 	
 	MOV R5, #0				@r5 holds number of cards that are dealt
-
 @Start the game here	
 play:
     LDR R0, adr_newLine
     BL printf
-
     LDR R0, adr_balance
     VLDR s10, [r0]
     VCVT.f64.f32 d0, s10
     VMOV R2, R3, d0
     LDR R0, adr_prntBal
     BL printf
-
     LDR R0, adr_betMsg
     BL printf
-
     LDR R0, adr_betForm
     LDR R1, adr_betAmnt
     BL scanf
-
     LDR R0, adr_newLine
     BL printf
  
-	@MOV R5, #0					  @R5 holds number of cards that have been dealth
     MOV R6, #0                    @R6 holds number of cards player has been dealt 
     MOV R7, #0                    @R7 holds number of cards dealer has been dealt 
 	
@@ -200,7 +174,6 @@ dealPlyr:
     ADD R6, R6, #1                @increment num  cards dealt to player 
     CMP R6, #2
     BNE	dealPlyr
-
 dealDlr:
     LDR R1, adr_shflIndx
     LDR R2, adr_dlrHnd
@@ -210,10 +183,8 @@ dealDlr:
     ADD R7, R7, #1                @increment num cards dealt to dealer 
     CMP	R7, #2
     BNE	dealDlr
-
     LDR R0, adr_shwDlr
     BL printf
-
     MOV R0, #1                    @don't show dealer hole card 
     LDR R1, adr_dlrHnd
     BL printArray
@@ -224,34 +195,26 @@ dealDlr:
     MOV R0, R6
     LDR R1, adr_plyrHnd
     BL printArray
-
-
     @Check if player has blackjack  only after initial cards are dealt 
     MOV R0, R6                @sum the total 
     LDR R1, adr_plyrHnd
     BL sumArray               @returns sum in r0
-
     CMP R0, #21 
     BEQ bjWin
-
 plyrCont:
     LDR R0, adr_newLine
     BL printf
-
     LDR R0, adr_hitStand
     BL printf
 	
     LDR R0, adr_hsFormat
     LDR R1, adr_hsChoice
     BL scanf
-
     LDR R1, adr_hsChoice              @get user choice read by scanf
     LDR R1, [r1]
-
     CMP	R1, #'h' 
     BEQ choiceH 
     b choiceS                         @anything other than 'h' is stay   
-
 choiceH:                          @player choose to get another card
 	LDR R0, adr_newLine
 	BL printf
@@ -263,7 +226,6 @@ choiceH:                          @player choose to get another card
     BL deal
     ADD R5, R5, #1
     ADD R6, R6, #1
-
     LDR r0, adr_shwPlyr            @show player what they've got 
     BL printf
 	
